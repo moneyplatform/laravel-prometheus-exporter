@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Moneyplatform\LaravelPrometheusExporter;
 
@@ -16,14 +16,14 @@ class GuzzleServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() : void
+    public function register(): void
     {
         $this->app->singleton('prometheus.guzzle.client.histogram', function ($app) {
             return $app['prometheus']->getOrRegisterHistogram(
                 'guzzle_response_duration',
                 'Guzzle response duration histogram',
                 ['method', 'external_endpoint', 'status_code'],
-                config('prometheus.guzzle_buckets') ?? null
+                config('prometheus.guzzle_buckets')
             );
         });
         $this->app->singleton('prometheus.guzzle.handler', function ($app) {
@@ -47,7 +47,7 @@ class GuzzleServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides() : array
+    public function provides(): array
     {
         return [
             'prometheus.guzzle.client',

@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 class MetricsController extends Controller
 {
     /**
-     * @var ResponseFactory
+     * @var ResponseFactory|null
      */
-    protected $responseFactory;
+    protected ?ResponseFactory $responseFactory;
 
     /**
-     * @var PrometheusExporter
+     * @var PrometheusExporter|null
      */
-    protected $prometheusExporter;
+    protected ?PrometheusExporter $prometheusExporter;
 
     /**
      * @param ResponseFactory    $responseFactory

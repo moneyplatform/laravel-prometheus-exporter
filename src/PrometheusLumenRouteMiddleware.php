@@ -2,17 +2,15 @@
 
 namespace Moneyplatform\LaravelPrometheusExporter;
 
-use Closure;
+use Illuminate\Http\Request as BaseRequest;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Facades\Route as RouteFacade;
-use Prometheus\Histogram;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class PrometheusLumenRouteMiddleware extends PrometheusLaravelRouteMiddleware
 {
-    public function getMatchedRoute(Request $request)
+    public function getMatchedRoute(Request|BaseRequest $request): Route
     {
         $routeCollection = new RouteCollection();
         $routes = RouteFacade::getRoutes();

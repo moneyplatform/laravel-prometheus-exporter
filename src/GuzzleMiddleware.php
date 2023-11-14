@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Moneyplatform\LaravelPrometheusExporter;
 
@@ -13,7 +13,7 @@ class GuzzleMiddleware
     /**
      * @var Histogram
      */
-    private $histogram;
+    private Histogram $histogram;
 
     /**
      * @param Histogram $histogram
@@ -31,7 +31,7 @@ class GuzzleMiddleware
      *
      * @return callable Returns a function that accepts the next handler.
      */
-    public function __invoke(callable $handler) : callable
+    public function __invoke(callable $handler): callable
     {
         return function (Request $request, array $options) use ($handler) {
             $start = microtime(true);

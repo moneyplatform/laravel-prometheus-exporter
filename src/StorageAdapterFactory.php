@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Moneyplatform\LaravelPrometheusExporter;
 
@@ -12,7 +12,7 @@ use Prometheus\Storage\Redis;
 
 class StorageAdapterFactory
 {
-    private $hostname;
+    private string $hostname;
 
     public function __construct()
     {
@@ -23,11 +23,11 @@ class StorageAdapterFactory
      * Factory a storage adapter.
      *
      * @param string $driver
-     * @param array  $config
+     * @param array $config
      *
      * @return Adapter
      */
-    public function make(string $driver, array $config = []) : Adapter
+    public function make(string $driver, array $config = []): Adapter
     {
         switch ($driver) {
             case 'memory':
@@ -48,10 +48,11 @@ class StorageAdapterFactory
      *
      * @return Redis
      */
-    protected function makeRedisAdapter(array $config) : Redis
+    protected function makeRedisAdapter(array $config): Redis
     {
         if (isset($config['prefix'])) {
-            $prefix = !empty($config['prefix_dynamic']) ? sprintf('%s_%s_', $config['prefix'], $this->hostname) : $config['prefix'];
+            $prefix = !empty($config['prefix_dynamic']) ? sprintf('%s_%s_', $config['prefix'],
+                $this->hostname) : $config['prefix'];
             Redis::setPrefix($prefix);
         }
 

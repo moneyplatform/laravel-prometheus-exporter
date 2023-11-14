@@ -72,7 +72,7 @@ class PrometheusServiceProvider extends ServiceProvider
         ];
     }
 
-    private function loadRoutes()
+    private function loadRoutes(): void
     {
         if (!config('prometheus.metrics_route_enabled')) {
             return;
@@ -81,7 +81,7 @@ class PrometheusServiceProvider extends ServiceProvider
         $router = $this->app['router'];
 
         /** @var Route $route */
-        $isLumen = mb_strpos($this->app->version(), 'Lumen') !== false;
+        $isLumen = str_contains($this->app->version(), 'Lumen');
         if ($isLumen) {
             $router->get(
                 config('prometheus.metrics_route_path'),

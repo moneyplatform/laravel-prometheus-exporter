@@ -3,7 +3,10 @@
 namespace Moneyplatform\LaravelPrometheusExporter;
 
 use Closure;
+use Illuminate\Http\Request as BaseRequest;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route as RouteFacade;
+use Prometheus\Exception\MetricsRegistrationException;
 use Prometheus\Histogram;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +20,9 @@ class PrometheusLaravelRouteMiddleware
      * @param Closure $next
      *
      * @return Response
+     * @throws MetricsRegistrationException
      */
-    public function handle(Request $request, Closure $next) : Response
+    public function handle(Request $request, Closure $next): Response
     {
         $matchedRoute = $this->getMatchedRoute($request);
 
@@ -36,7 +40,7 @@ class PrometheusLaravelRouteMiddleware
                 'route',
                 'status_code',
             ],
-            config('prometheus.guzzle_buckets') ?? null
+            config('prometheus.guzzle_buckets')
         );
         /** @var  Histogram $histogram */
         $histogram->observe(
@@ -50,9 +54,8 @@ class PrometheusLaravelRouteMiddleware
         return $response;
     }
 
-    public function getMatchedRoute(Request $request)
+    public function getMatchedRoute(Request|BaseRequest $request): Route
     {
-        $routeCollection = RouteFacade::getRoutes();
-        return $routeCollection->match($request);
+        return RouteFacade::getRoutes()->match($request);
     }
 }
