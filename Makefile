@@ -1,5 +1,5 @@
-PHP_VERSION ?= 7.3
-PHP ?= bin/php -d "xdebug.mode=off"
+PHP_VERSION ?= 8.3
+PHP ?= /bin/php -d "xdebug.mode=off"
 COMPOSER ?= bin/composer
 
 .PHONY: setup
